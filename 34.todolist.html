@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background: #fff;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 4px 12px;
+            margin-bottom: 0;
+            font-size: 14px;
+            line-height: 20px;
+            text-align: center;
+            vertical-align: middle;
+            /* cursor定义光标的形状 */
+            cursor: pointer;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+            border-radius: 4px;
+        }
+
+        .btn-danger {
+            color: #fff;
+            background-color: #da4f49;
+            border: 1px solid #bd362f;
+        }
+
+        .btn-danger:hover {
+            color: #fff;
+            background-color: #bd362f;
+        }
+
+        .btn:focus {
+            outline: none;
+        }
+
+        .todo-container {
+            width: 600px;
+            margin: 0 auto;
+        }
+
+        .todo-container .todo-wrap {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .todo-header input {
+            width: 560px;
+            height: 28px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 4px 7px;
+        }
+
+        .todo-header input:focus {
+            outline: none;
+            border-color: rgba(82, 168, 236, 0.8);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+        }
+
+        .todo-main {
+            margin-left: 0px;
+            border: 1px solid #ddd;
+            border-radius: 2px;
+            padding: 0px;
+        }
+
+        .todo-empty {
+            height: 40px;
+            line-height: 40px;
+            border: 1px solid #ddd;
+            border-radius: 2px;
+            padding-left: 5px;
+            margin-top: 10px;
+        }
+
+        li {
+            list-style: none;
+            height: 36px;
+            line-height: 36px;
+            padding: 0 5px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        li label {
+            float: left;
+            cursor: pointer;
+        }
+
+        li label li input {
+            vertical-align: middle;
+            margin-right: 6px;
+            position: relative;
+            top: -1px;
+        }
+
+        li button {
+            float: right;
+            display: none;
+            margin-top: 3px;
+        }
+
+        li:before {
+            content: initial;
+        }
+
+        li:last-child {
+            border-bottom: none;
+        }
+
+        /*footer*/
+        .todo-footer {
+            height: 40px;
+            line-height: 40px;
+            padding-left: 6px;
+            margin-top: 5px;
+        }
+
+        .todo-footer label {
+            display: inline-block;
+            margin-right: 20px;
+            cursor: pointer;
+        }
+
+        .todo-footer label input {
+            position: relative;
+            top: -1px;
+            vertical-align: middle;
+            margin-right: 5px;
+        }
+
+        .todo-footer button {
+            float: right;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root">
+        <div class="todo-container">
+            <div class="todo-wrap">
+                <div class="todo-header">
+                    <input id="newTodo" type="text" placeholder="请输入你的任务名称，按回车键确认" />
+                </div>
+                <ul class="todo-main">
+
+                </ul>
+                <div class="todo-footer">
+                    <label>
+                        <input id="checkAll" type="checkbox" />
+                    </label>
+                    <span>
+                        已完成<span id="allCompletedTodos">0</span> / 全部<span id="allTodos">2</span>
+                    </span>
+                    <button id="removeAllCompleted" class="btn btn-danger">清除已完成任务</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="./jquery-1.10.1.js"></script>
+    <script>
+        // 更新总任务数
+        // 获取总任务span标签
+        let $all = $('#allTodos');
+        function upAll() {
+            $all.html($ulNode.children('li').length);
+        }
+        // 模拟json数据
+        let arr = [{ item: '吃饭' }, { item: '睡觉' }, { item: '打豆豆' }];
+        arr = JSON.stringify(arr);
+        let json = JSON.parse(arr);
+        // 将获取的数据插入到li中
+        // 获取ul容器
+        let $ulNode = $('.todo-main');
+        function todo(json) {
+            for (let i = 0; i < json.length; i++) {
+                $ulNode.append('<li class="todoItem" style="background: rgb(255, 255, 255);"><label><input type="checkbox"><span>' + json[i].item + '</span></label><button class="btn btn-danger" style="display: none;">删除</button></li>');
+            }
+
+            upAll();
+        }
+        todo(json);
+        
+        
+        // 更新已完成的个数
+        function upDate() {
+            $('#allCompletedTodos').html($('li input:checkbox:checked').length);
+        }
+        // 点击全选复选框 多选框全部和复选框的状态一致
+        // 获取全选按钮
+        $checkAll = $('#checkAll');
+        $checkAll.click(function () {
+            $ulNode.find('li input:checkbox').prop('checked', this.checked);
+            upDate();
+        });
+        // 点击多选框的时候更新任务数 并且判断是否全选 得用委派
+        $ulNode.delegate('li input:checkbox', 'click', function () {
+            // $checkAll.prop('checked', $('li input:checked').length == $('li input:checkbox').length);
+            $checkAll.prop('checked', $('li input:not(:checked)').length == 0);
+            upDate();
+        });
+        // 移入事件
+        $ulNode.delegate('.todoItem', 'mouseenter', function () {
+            $(this).css('background', '#ccc');
+            $(this).find('button').show();
+        });
+        // 移出事件
+        $ulNode.delegate('.todoItem', 'mouseleave', function () {
+            $(this).css('background', '#fff');
+            $(this).find('button').hide();
+        });
+        // button删除
+        $ulNode.delegate('.todoItem button', 'click', function () {
+            $(this).parent().remove();
+            // 更新任务总数
+            upAll();
+            // 更新已完成数
+            upDate();
+            // 更新全选框
+            $checkAll.prop('checked', $ulNode.find('.todoItem checkbox:not(:checked)').length == 0 && $ulNode.find('.todoItem').length != 0);
+        });
+        // 清空以完成任务
+        $('#removeAllCompleted').click(function () {
+            $ulNode.find('.todoItem input:checked').parent().parent().remove();
+            // 更新任务总数
+            upAll();
+            // 更新已完成数
+            upDate();
+            // 更新全选框
+            $checkAll.prop('checked', false);
+        });
+        // 回车添加事件
+        $('#newTodo').keydown(function(event){
+            if(event.keyCode == '13'){
+                if(this.value.trim()){
+                    let json = [{item : $(this).val()}];
+                    json = JSON.stringify(json);
+                    // 创建节点
+                    todo($.parseJSON(json));
+                    // 更新全选状态
+                    $checkAll.prop('checked', false)
+                }else{
+                    alert('请输入有效信息！');
+                }
+
+                this.value = '';
+            }
+        })
+    </script>
+</body>
+
+</html>

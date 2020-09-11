@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <img src="../img/jQuery插件/thumb.jpg" alt="Image To Zoom" class="example">
+    <!-- <img src="../img/jQuery插件/big.jpg" data-large="full.jpg" alt="Image To Zoom" class="example"> -->
+    <script src="./jquery-1.10.1.js"></script>
+    <script src="./zoomsl.js"></script>
+    <script>
+        $(function () {
+            $(".example").imagezoomsl({
+                // loading spinner
+                loadinggif: '../img/jQuery插件/loadingImg.gif',
+
+                // opacity
+                loadopacity: 0.1,
+
+                // background color
+                loadbackground: '#878787',
+                cursorshade: true,
+            });
+        });
+    </script>
+
+</body>
+
+</html>

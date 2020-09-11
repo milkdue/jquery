@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>222222222222</p>;
+    <div>
+        <div>22222</div>
+    </div>
+    <button>测试1</button>
+    <button>测试2</button>
+    <button>测试4</button>
+    <button id="btn3">测试3</button>
+    <!-- 
+        length
+        size()
+        [index]/get(index)
+        each()
+        index()
+
+     -->
+    <script src="./jquery-1.10.1.js"></script>
+    <script>
+        // 统计一共有多少个按钮
+        var $btns = $('button');//$表示jQuery对象 不加就是dom对象
+        console.log($btns.length);
+        console.log($btns.size());
+        // 取出第二个button的文本
+        // jQuery对象整体就是jQuery对象 里面的每个都是dom对象
+        // console.log($btns[1].html())//报错 dom没有html函数
+        console.log($btns[1].innerHTML);
+        console.log($btns.get(1).innerHTML);
+        // 输出所有button标签的对象
+        $btns.each(function(){
+            console.log(this.innerHTML);
+        });
+        // 输出测试3按钮是所有按钮中的第几个
+        // index方法查找的是同级的兄弟元素 或者是其父元素的所有子元素中的索引
+        console.log($('#btn3').index());
+    </script>
+</body>
+</html>

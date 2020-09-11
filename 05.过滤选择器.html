@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="div1" class="box">div1</div>
+    <div id="div2" class="box">div2</div>
+    <div id="div3">div3</div>
+    <span class="box">span</span>
+    <br>
+    <ul>
+        <li>AAAAA</li>
+        <li title="hello">BBBBBBBBBB</li>
+        <li class="box" title="hell1o">CCCCCCCCC</li>
+        <li title="hello">DDDDDDDDDD<span class="box">span</span></li>
+        <span class="box">span</span>
+        <li style="display: none;">隐藏的</li>
+    </ul>
+    <script src="./jquery-1.10.1.js"></script>
+    <script>
+        // 选中第一个div
+        $("div:first").css("background", "blue");
+        // 选中最后一个div
+        $("div:last").css("background", "blue");
+        // 选中所有class不为box的div
+        $("div:not(.box)").css("background", "blue");
+        // 选中第二个和第三个li元素
+        // 选择器从左到右执行 0,1,2,3,4  大于0| 1 2 3 4 变成= 0 1 2 3
+        $("li:gt(0):lt(2)");
+        // 选择内容为BBBBBBBBBB的li     contains(text);
+        $("li:contains(BBBBBBBBBB)").css("background", "yellow");
+        // 选择隐藏的li
+        $("li:hidden").show(1000);
+        // show动画
+        // 选择有title属性的选择器
+        $("li[title]");
+        // 选择title属性为hello的li
+        $("li[title = hello]");
+        // 选择所有有title属性且title属性不为hello的li
+        $("li[title][title != hello]").css("background", "red");;
+    </script>
+</body>
+</html>

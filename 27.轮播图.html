@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        img {
+            vertical-align: top;
+        }
+
+        .banner {
+            position: relative;
+            width: 590px;
+            height: 470px;
+            overflow: hidden;
+            margin: 100px auto;
+        }
+
+        .banner .bannerInner {
+            position: absolute;
+            left: -590px;
+            top: 0px;
+            width: 4720px;
+            height: 470px;
+            display: flex;
+        }
+
+        .banner span {
+            position: absolute;
+            width: 50px;
+            height: 80px;
+            text-align: center;
+            line-height: 80px;
+            font-size: 40px;
+            background-color: rgb(243, 239, 239);
+            opacity: .1;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: opacity 2s;
+        }
+
+        .banner .icon {
+            position: absolute;
+            width: 110px;
+            height: 16px;
+            bottom: 10px;
+            right: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .banner .icon li {
+            /* box-sizing: border-box; */
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, .4);
+        }
+
+        .banner .icon li.radius {
+            background-color: white;
+            border: 3px solid rgba(0, 0, 0, .4);
+        }
+
+        .banner span.left {
+            left: 0;
+        }
+
+        .banner span.right {
+            right: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="banner">
+        <ul class="bannerInner">
+            <li>
+                <img src="../img/京东轮播图/6.jpg">
+            </li>
+            <li>
+                <img src="../img/京东轮播图/1.jpg">
+            </li>
+            <li>
+                <img src="../img/京东轮播图/2.jpg">
+            </li>
+            <li>
+                <img src="../img/京东轮播图/3.jpg">
+            </li>
+            <li>
+                <img src="../img/京东轮播图/4.jpg">
+            </li>
+            <li>
+                <img src="../img/京东轮播图/5.jpg">
+            </li>
+            <li>
+                <img src="../img/京东轮播图/6.jpg">
+            </li>
+            <li>
+                <img src="../img/京东轮播图/1.jpg">
+            </li>
+        </ul>
+        <ul class="icon">
+            <li class="radius"></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+        <span class="left"><</span>
+        <span class="right">></span>
+    </div>
+    <script src="./jquery-1.10.1.js"></script>
+    <script>
+        // 获取外层容器
+        let $bannerNode = $('.banner');
+        // 获取左按钮
+        let $leftNode = $('.banner span.left');
+        // 获取右按钮
+        let $rightNode = $('.banner span.right');
+        // 获取内部大容器
+        let $bannerInnerNode = $('.banner .bannerInner');
+        // 获取小圆点
+        let $liNodes = $('.banner .icon li');
+        // 小圆点的旧的索引
+        let oldIndex = 0;
+        // 过渡的总时间
+        let timeAll = 590;
+        // 每次的时间
+        let timeStep = 10;
+        // 自动轮播定时器
+        let timerAuto = null;
+        // 设置轮播标志位
+        let isMove = false;
+        // 移入左按钮由透明变不透明
+        $leftNode.mouseenter(function () {
+            $(this).css('opacity', '.5');
+        }).mouseleave(function () {
+            $(this).css('opacity', '.1');
+        });
+        // 移入右边按钮由透明变不透明
+        $rightNode.mouseenter(function () {
+            $(this).css('opacity', '.5');
+        }).mouseleave(function () {
+            $(this).css('opacity', '.1');
+        });
+        // 点击左边按钮上一张
+        $leftNode.click(function () {
+            nextOrLastPage(false);
+        });
+        // 点击右边按钮下一张
+        $rightNode.click(function () {
+            nextOrLastPage(true);
+        });
+        // 定义下一张上一张的函数
+        function nextOrLastPage(flag) {
+            // 判断是否正在轮播
+            if(isMove){
+                return;
+            }
+            isMove = true;
+            // setTimeout(() => isMove = false, timeAll);
+            // 声明偏移量
+            let offset = 0;
+            if(typeof flag == 'boolean'){
+                // 判断是上一张还是下一张
+                flag ? offset = -590 : offset = 590;
+            }else{
+                offset = (flag - oldIndex) * -590;
+            }
+            // 每次走的偏移
+            let disStep = offset / timeAll * timeStep;
+            // 获取内层大容器的位置
+            let left = $bannerInnerNode.position().left;
+            // 内层容器的最终位置
+            let leftLast = left + offset;
+            // 设置定时器 或者当一张播完后isMove变成false
+            let timer = setInterval(() => {
+                left += disStep;
+                // 判断是否到达最终位置
+                if (left == leftLast) {
+                    clearInterval(timer);
+                    // 如果图片的位置在0让它去实际的最后一张
+                    if (left == 0) {
+                        left = -590 * 6
+                        // 如果图片的位置在最后一张 让他去实际的第一张
+                    } else if (left == 7 * -590) {
+                        left = -590;
+                    }
+                    // isMove设为false 或者用定时器
+                    isMove = false;
+                }
+                $bannerInnerNode.css('left', left);
+            }, timeStep);
+            // 调用更新小圆点的函数
+            upDate(flag);
+        }
+        // 定义小圆点更新函数
+        function upDate(flag){
+            // 定义新索引
+            let index = 0;
+            // 判断参数类型
+            if(typeof flag == 'boolean'){
+                index = flag ? oldIndex + 1 : oldIndex - 1;
+            }else{
+                index = flag;
+            }
+            // 判断是否越界
+            if(index < 0){
+                index = $liNodes.length - 1;
+            }
+            // 不用排它 只操作两个元素
+            $liNodes[oldIndex].className = '';
+            $liNodes[index % $liNodes.length].className = 'radius';
+            // 更新下标
+            oldIndex = index % $liNodes.length;
+        }
+
+        // 点击小圆点翻页
+        $liNodes.click(function(){
+            nextOrLastPage($(this).index());
+        });
+        // 自动轮播
+        function autoPlay(){
+            timerAuto = setInterval(function(){
+                nextOrLastPage(true);
+            }, 2000);
+        }
+
+        $bannerNode.hover(() => clearInterval(timerAuto),autoPlay);
+    </script>
+</body>
+
+</html>

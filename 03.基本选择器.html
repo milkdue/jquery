@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="div1" class="box">div1</div>
+    <div id="div2" class="box">div2</div>
+    <div id="div3">div3</div>
+    <span class="box">span</span>
+    <br>
+    <ul>
+        <li>AAAAA</li>
+        <li title="hello">BBBBBBBBBB</li>
+        <li class="box">CCCCCCCCC</li>
+        <li title="hello">DDDDDDDDDD</li>
+    </ul>
+    <script src="./jquery-1.10.1.js"></script>
+    <script>
+        // 选择id为div1的元素
+        $("#div1").css("background", "pink");
+        // 选择所有div元素
+        $("div").css("background", "pink");
+        // 选择类为box的元素
+        $(".box").css("background", "pink");
+        // 选择div和span元素
+        $("div,span").css("background", "pink");
+        // 选择所有class为box的div元素
+        $("div.box").css("background", "blue");
+    </script>
+</body>
+</html>

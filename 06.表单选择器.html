@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="div1" class="box">div1</div>
+    <div id="div2" class="box">div2</div>
+    <div id="div3">div3</div>
+    <span class="box">span</span>
+    <br>
+    <ul>
+        <li>AAAAA</li>
+        <li title="hello">BBBBBBBBBB</li>
+        <li class="box" title="hell1o">CCCCCCCCC</li>
+        <li title="hello">DDDDDDDDDD<span class="box">span</span></li>
+        <span class="box">span</span>
+        <li style="display: none;">隐藏的</li>
+    </ul>
+    <input type="text" disabled value="hhhhh">;
+    <select>
+        <option value="1">北京</option>
+        <option value="2" selected>天津</option>
+        <option value="3">河北</option>
+    </select>
+    <script src="./jquery-1.10.1.js"></script>
+    <script>
+        // 选择不可用的文本输入框
+        $(":input:text:disabled").css("background", "red");
+        // 显示选择的城市
+        console.log($("select option:selected").html());
+
+    </script>
+</body>
+</html>

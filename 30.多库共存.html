@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 
+        问题：当两个库都可以使用$，那么后引入的就会覆盖先引入的
+        jQuery可以释放$的使用权，释放以后就只能使用jQuery代替$了
+        API:jQuery.noConflict()
+     -->
+</head>
+<body>
+    <script src="./mylib.js"></script>
+    <script src="./jquery-1.10.1.js"></script>
+    <script>
+        // callback队列等待 主线程结束 将队列回调勾回主线程
+        // 释放$的使用权
+        jQuery.noConflict();
+        jQuery(function(){
+            alert('我是jQuery');
+        });
+        $();
+    </script>
+</body>
+</html>

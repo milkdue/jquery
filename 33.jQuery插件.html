@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>粒子</title>
+    <style>
+    * {
+        padding: 0;
+         margin: 0;
+         overflow: hidden;
+     }
+    </style>
+</head>
+
+<body>
+   <canvas id="canvas"></canvas>
+   <script>
+   var canvas = document.getElementById('canvas')
+   var viewW = window.innerWidth
+   var viewH = window.innerHeight
+   canvas.width = viewW
+   canvas.height = viewH
+   var ctx = canvas.getContext('2d')
+   ctx.save()
+   // 原型粒子对象参数
+   var dots = {
+       number: 300,
+       maxDot: 30,
+       array: []
+   }
+   var isOne = true
+   var step = 0.3
+   var x = 0
+   var y = 0
+   var x1 = 0
+   var y1 = 0
+   drawDots()
+   
+   // 画粒子
+   function drawDots() {
+       ctx.clearRect(0, 0, viewW, viewH)
+       ctx.fillStyle = '#000'
+       ctx.fillRect(0, 0, viewW, viewH)
+       for (var i = 0; i < dots.number; i++) {
+           var dotR,
+               dotX,
+               dotY,
+               dotC,
+               dot_X = 0.3,
+               dot_Y = 0;
+           if (isOne) {
+               dotR = Math.round(Math.random() * dots.maxDot) || 1;
+               dotX = Math.round(Math.random() * viewW);
+               dotY = Math.round(Math.random() * viewH);
+               dotC = generateRandomColors();
+               if (Math.round(Math.random()) == 1) {
+                   dot_X = 0.3
+               } else {
+                   dot_X = -0.3
+               }
+               if (Math.round(Math.random()) == 1) {
+                   dot_Y = 0.3
+               } else {
+                   dot_Y = -0.3
+               }
+               dots.array.push({
+                   dotR,
+                   dotX,
+                   dotY,
+                   dotC,
+                   dot_X,
+                   dot_Y
+               })
+               if (i == 0) {
+                   x = dotX;
+                   y = dotY;
+               }
+               if (i == 2) {
+                   x1 = dotX;
+                   y1 = dotY;
+               }
+           } else {
+               if (dots.array[i].dotX + dots.array[i].dot_X > viewW) {
+                   dots.array[i].dot_X = -0.3
+               }
+               if (dots.array[i].dotX + dots.array[i].dot_X < 0) {
+                   dots.array[i].dot_X = 0.3
+               }
+               if (dots.array[i].dotY + dots.array[i].dot_Y > viewH) {
+                   dots.array[i].dot_Y = -0.3
+               }
+               if (dots.array[i].dotY + dots.array[i].dot_Y < 0) {
+                   dots.array[i].dot_Y = 0.3
+               }
+                dots.array[i].dotX += dots.array[i].dot_X
+                dots.array[i].dotY += dots.array[i].dot_Y
+                dotX = dots.array[i].dotX;
+                dotY = dots.array[i].dotY;
+                dotR = dots.array[i].dotR;
+                dotC = dots.array[i].dotC;
+                ctx.beginPath();
+                ctx.fillStyle = dotC;
+                ctx.arc(dotX, dotY, dotR, 0, Math.PI * 2);
+                ctx.fill()
+                if (Math.abs(x - dots.array[i].dotX) < 500 && Math.abs(y - dots.array[i].dotY) < 500) {
+                    ctx.strokeStyle = dotC
+                    ctx.moveTo(x, y)
+                    ctx.lineTo(dots.array[i].dotX, dots.array[i].dotY)
+                    ctx.stroke()
+                }
+                if (Math.abs(x1 - dots.array[i].dotX) < 200 && Math.abs(y1 - dots.array[i].dotY) < 200) {
+                    ctx.strokeStyle = dotC
+                    ctx.moveTo(x1, y1)
+                    ctx.lineTo(dots.array[i].dotX, dots.array[i].dotY)
+                    ctx.stroke()
+                }
+            }
+        }
+
+        if (isOne) {
+            isOne = false
+        }
+        ctx.restore()
+        requestAnimationFrame(drawDots)
+    }
+    // 生成随机颜色
+    function generateRandomColors() {
+        var color1 = Math.random() * 255 || 1,
+            color2 = Math.random() * 255 || 1,
+            color3 = Math.random() * 255 || 1,
+            color4 = Math.random() * 1 || 0.1;
+        return `rgba(${color1},${color2},${color3},${color4})`
+    }
+    </script>
+</body>
+
+</html>

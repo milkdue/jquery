@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="box" class='wrap'>
+        <button id="btn">测试</button>
+        <br>
+        <input type="text" name='msg1'><br>
+        <input type="text" name="msg2"><br>
+    </div>
+    <script src="./jquery-1.10.1.js"></script>
+    <script>
+        var divNode = document.getElementById('box');
+        // 需求：点击按钮：显示按钮的文本，显示一个新的输入框
+        $(function(){//相当于window.onload 参数是IIEF
+        // 参数为选择器：查找所有匹配的标签，并将它们封装为jquery对象
+            $('#btn').click(function(){
+                alert(this.innerHTML);
+                // 参数为dom对象，返回的对应的jQuery对象 dom里面没有html方法
+                alert($(this).html());
+                // 参数为html标签字符串：创建标签对象并封装为jQuery对象
+                $('<input type="text" name="msg2"><br>').appendTo('#box');//选择器字符串
+                var inputNode = document.createElement('input');
+                divNode.appendChild(inputNode);
+                var brNode = document.createElement('br');
+                divNode.appendChild(brNode); 
+            });
+        });
+
+        // 遍历输出数组中的所有元素值
+        let arr = [4, 4, 2, 5];
+        $.each(arr, function(index, value){
+            console.log(index, value);
+        });
+
+        arr.forEach((item, index) => console.log(index, item));
+
+        // 去除字符串两端的空格
+        let str = '          mafakf   ';
+        console.log(str.trim());
+        console.log($.trim(str));
+    </script>
+</body>
+</html>

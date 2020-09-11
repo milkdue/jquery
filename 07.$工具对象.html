@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 
+        $.each()            遍历
+        $.trim()            清除字符串两端空格
+        $.type()            判断数据类型
+        $.isFunction()      判断是否是函数
+        $.isArray()         判断是否是数组
+        $.pardeJSON()       解析json数据
+     -->
+</head>
+<body>
+    <script src="./jquery-1.10.1.js"></script>
+    <script>
+        var obj = {name : 'zhangsan', age : 13};
+        $.each(obj, function(key, value){
+            console.log(`${key}:${value}`);
+        });
+
+        let str = '    zhangsan       ';
+        let arr = [];
+        let symbol = Symbol();
+        let f1 = () => console.log('f1');
+        let num = 1;
+        let und = undefined;
+        let objN = null;
+        console.log($.trim(str));
+        console.log($.type(obj), $.type(str), $.type(arr), $.type(symbol), $.type(f1), $.type(num), $.type(und), $.type(objN));
+        console.log($.isFunction(f1), $.isFunction(obj));
+        console.log($.isArray(arr), $.isArray(num));
+        let json = JSON.stringify(obj);
+        console.log(json);
+        console.log($.parseJSON(json));
+    </script>
+</body>
+</html>

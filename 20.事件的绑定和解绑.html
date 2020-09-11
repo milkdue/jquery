@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>18_事件绑定与解绑</title>
+</head>
+<style type="text/css">
+  * {
+    margin: 0px;
+  }
+
+  .out {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    top: 20px;
+    left: 10px;
+    background: blue;
+  }
+
+  .inner {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    top: 50px;
+    background: red;
+  }
+
+  .divBtn {
+    position: absolute;
+    top: 250px;
+  }
+
+</style>
+
+<body style="height: 2000px;">
+
+<div class="out">
+  外部DIV
+  <div class="inner">内部div</div>
+</div>
+
+<div class='divBtn'>
+  <button id="btn1">取消绑定所有事件</button>
+  <button id="btn2">取消绑定mouseover事件</button>
+
+</div>
+
+<!--
+1. 事件绑定(2种)：
+  * eventName(function(){})
+    绑定对应事件名的监听,	例如：$('#div').click(function(){});
+  * on(eventName, funcion(){})
+    通用的绑定事件监听, 例如：$('#div').on('click', function(){})
+  * 优缺点:
+    eventName: 编码方便, 但只能加一个监听, 且有的事件监听不支持
+    on: 编码不方便, 可以添加多个监听, 且更通用
+    滑动事件：mouseenter，mouseleave，mouseover，mouseout
+2. 事件解绑：
+  * off(eventName)
+
+-->
+<script type="text/javascript" src="jquery-1.10.1.js"></script>
+  <script type="text/javascript">
+//      1. 给.out绑定点击监听(用两种方法绑定)
+    $('.out').click(function(){
+        console.log('我是click事件监听');
+    });
+    $('.out').on('click', () => console.log('我是on绑定的click监听'));//没有生覆盖证明用的是addEventListener
+//      2. 给.inner绑定鼠标移入和移出的事件监听(用3种方法绑定)
+    $('.inner').on('mouseenter', () => console.log('我是mouseenter移入事件')).on('mouseleave', () => console.log('我是mouseleave绑定的移出事件'));;
+    // $('.inner').on('mouseleave', () => console.log('我是mouseleave绑定的移出事件'));
+    $('.inner').on('mouseover', () => console.log('我是mouseover绑定的移入事件'));
+    $('.inner').on('mouseout', () => console.log('我是mouseout绑定的移出事件'));
+    $('.inner').mouseenter(() => console.log('我是mouseenter链式移入事件')).mouseleave(() => console.log('我是mouseleave链式绑定的移出事件'));
+    $('.inner').mouseover(() => console.log('我是mouseover链式绑定的移入事件')).mouseout(() => console.log('我是mouseout链式绑定的移出事件'));
+    // jQuery提供了hover方法绑定移入与移出事件 当传两个参数时， 第一个参数是移入的回调 第二个是移出的回调 只传一个参数 那么移入移出的回调都是它
+    $('.inner').hover(() => console.log('我是hover绑定的移入事件'), () => console.log('我是hover绑定的移出事件'));
+//      3. 点击btn1解除.inner上的所有事件监听
+    // 使用off方法解除绑定事件 off方法可以传递参数 参数是字符串 如果要解绑多个事件 中间用空格隔开 同时on方法也可以绑定多个事件 中间用空格 执行同一个回调
+    $('#btn1').click(() => $('.inner').off());
+//      4. 点击btn2解除.inner上的mouseover事件
+    $('#btn2').click(() => $('.inner').off('mouseover mouseout'));
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,656 @@
+/* 清除默认样式 */
+html, body{
+    height: 100%;
+    overflow: hidden;
+}
+html, body, h1, h2, h3, h4, h5, h6, p, ul, li{
+    margin: 0;
+    padding: 0;
+    font: 14px "微软雅黑";
+}
+a{
+    text-decoration: none;
+    display: block;
+}
+li{
+    list-style: none;
+}
+img{
+    display: block;
+}
+/* 解决高度塌陷 和外边距重叠 */
+.clearfix::before,.clearfix::after{
+    content: "";
+    display: table;
+    clear: both;
+}
+/* 每张标题公共样式 */
+.commonTitle{ 
+    color: #009ee0; 
+    font-size: 80px; 
+    line-height: 0.8; 
+    font-weight: bold; 
+    letter-spacing: -5px;
+}
+/* 标题下的文字样式 */
+.commonText{ 
+    color: white;
+    line-height: 1.5; 
+    font-size: 15px;
+}
+/* 头部外部容器 */
+#header{
+    position: relative;
+    width: 100%;
+    height: 80px;
+    background-color: rgba(135, 206, 235, .3);
+    transition: 1s;
+}
+/* 头部内部容器 */
+#header .headMain{
+    width: 1100px;
+    height: 100%;
+    margin: 0 auto;
+    border-radius: 10px;
+}
+/* logo */
+#header .headMain .logo{
+    float: left;
+    margin-top: 4px;
+}
+/* 音频 */
+#header .headMain .music{
+    width: 14px;
+    height: 14px;
+    margin: 58px 0 0 5px;
+    background-image: url("../img/musicoff.gif");
+    background-repeat: no-repeat;
+    float: left;
+    cursor: pointer;
+}
+/* navegate */
+#header .headMain .nav{
+    float: right;
+    margin-top: 50px;
+}
+/* li */
+#header .headMain .nav li{
+    position: relative;
+    float: left;
+    margin-left: 40px;
+}
+/* 上面的元素覆盖下面的元素  设置宽度为0让下面的元素出来*/
+#header .headMain .nav li .up{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    color: black;
+    overflow: hidden;
+    transition: width 1s;
+}
+/* 移入移出效果 */
+#header .headMain .nav li:hover .up{
+    width: 100%;  
+}
+/* 小三角 */
+#header .arrow{
+    position: absolute;
+    width: 21px;
+    height: 11px;
+    background-image: url("../img/arrow.png");
+    bottom: -11px;
+    /* 背景图片不重复 */
+    background-repeat: no-repeat;
+    left: 50%;
+    transition: 1s;
+    z-index: 99;
+}
+/* 内容区 */
+.content{
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+/* 轮播大容器 */
+.content .list{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    transition: 1s;
+}
+/* 每一屏幕 */
+.content .list li{
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+/* 里面的内容 */
+.content .list li > div{
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    margin: auto;
+    width: 1100px;
+    height: 520px;
+    /* background-color: blue; */
+}
+/* 设置背景 */
+/* 第三屏 */
+.content .list > li:nth-child(3){
+    background-image: url(../img/bg3.jpg);
+}
+/* 笔 */
+.content .list > li .works .pencel1{ 
+    width:180px; 
+    height:97px; 
+    background:url(../img/pencel1.png) no-repeat; 
+    position:absolute; 
+    transition:1s; 
+    left:500px; 
+    top:0;
+    z-index: 98;
+}
+.content .list > li .works .pencel2{ 
+    width:268px; 
+    height:38px; 
+    background:url(../img/pencel2.png) no-repeat; 
+    position:absolute; 
+    transition:1s; 
+    left:300px; 
+    top:250px;
+    z-index: 98;
+}
+.content .list > li .works .pencel3{ 
+    width:441px; 
+    height:231px; 
+    background:url(../img/pencel3.png) no-repeat; 
+    position:absolute; 
+    transition:1s; 
+    left:650px; 
+    top:300px;
+    z-index: 98;
+}
+/* 内容区标题 */
+.content .list > li .works .works1{
+    margin: 50px 0 100px 50px;
+}
+/* 列表空隙 */
+.content .list > li .works .works2{
+    margin-left: 50px;
+    position: relative;
+    z-index: 99;
+}
+/* 每一项样式 */
+.content .list > li .works .works2 .item{
+    position: relative;
+    float: left;
+    width: 220px;
+    height: 133px;
+    margin: 0 1px;
+    overflow: hidden;
+    cursor: pointer;
+}
+/* 最后一项的样式 */
+.content .list > li .works .works2 .item:last-child{
+    width: 332px;
+    height: 133px;
+}
+/* 设置遮罩 */
+.content .list > li .works .works2 .item .mask{
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(25,25,25,0.8);
+    color: white;
+    padding: 10px;
+    opacity: 0;
+    transition: opacity 1s;
+}
+/* 放大图标 */
+.content .list > li .works .works2 .item .mask .icon{
+    width: 32px;
+    height: 34px;
+    margin: 10px auto 0;
+    background-image: url(../img/zoomico.png);
+    background-repeat: no-repeat;
+    transition: background-position 1s;
+}
+/* 加遮罩移入效果 */
+.content .list > li .works .works2 .item:hover .mask{
+    opacity: .8;
+}
+/* 加放大图标移入效果 */
+.content .list > li .works .works2 .item:hover .mask .icon{
+    background-position: 0 -35px;
+}
+/* 图片放大 旋转过渡 */
+.content .list > li .works .works2 .item img{
+    transition: transform 1s;
+}
+/* 加图片移入的效果 */
+.content .list > li .works .works2 .item:hover img{
+    transform: rotate(15deg) scale(1.6);
+}
+
+/* 机器人 */
+.content .list > li .works .works3{
+    width: 167px;
+    height: 191px;
+    position: absolute;
+    left: 900px;
+    top: 170px;
+    background-image: url(../img/robot.png);
+    background-repeat: no-repeat;
+    animation: robotMove 3s infinite linear;
+    z-index: 99;
+}
+/* 设置关键帧 */
+@keyframes robotMove{
+    from{
+        transform: rotateY(0deg);
+    }
+    49%{
+        transform: rotateY(0deg);
+    }
+    50%{
+        transform: rotateY(.5turn);
+        left: 30%;
+    }
+    to{
+        transform: rotateY(.5turn);
+    }
+}
+/* 第四屏 */
+.content .list > li:nth-child(4){
+    background-image: url(../img/bg4.jpg);
+}
+/* 标题 */
+.content .list > li .about .about1{
+    margin: 50px 0 100px 50px;
+}
+/* 文本 */
+.content .list > li .about .about2{
+    width: 400px;
+    margin-left: 50px;
+}
+/* 图片外部容器 */
+.content .list > li .about .about3 .item{
+    position: absolute;
+    width: 260px;
+    height: 200px;
+    border: 5px solid rgba(255,255,255,0.5);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 1s;
+}
+.content .list > li .about .about3 .item:first-child{
+    left: 750px;
+    top: 50px;
+}
+.content .list > li .about .about3 .item:last-child{
+    left: 600px;
+    top: 290px;
+}
+.content .list > li .about .about3 .item ul{
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    /* opacity: 0; */
+}
+/* 图片 */
+.content .list .about .about3 .item:first-child > div{
+    width: 100%;
+    height: 100%;
+    background-image: url(../img/about2.jpg);
+    background-repeat: no-repeat;
+}
+.content .list .about .about3 .item:last-child > div{
+    width: 100%;
+    height: 100%;
+    background-image: url(../img/about4.jpg);
+    background-repeat: no-repeat;
+}
+.content .list > li .about .about3 .item ul li{
+    position: relative;
+    float: left;
+    overflow: hidden;
+    /* display: none; */
+}
+.content .list > li .about .about3 .item ul li img{
+    position: absolute;
+    transition: 1s;
+    left: 0;
+    top: 0;
+}
+/* 第二屏 */
+.content .list > li:nth-child(2){
+    background-image: url(../img/bg2.jpg);
+}
+/* 飞机 */
+.content .list > li .course .plane1{ 
+    width:359px; 
+    height:283px; 
+    background:url(../img/plane1.png) no-repeat; 
+    position:absolute; 
+    left:300px; 
+    top:-100px; 
+    transition:1s;
+}
+.content .list > li .course .plane2{ 
+    width:309px; 
+    height:249px; 
+    background:url(../img/plane2.png) no-repeat; 
+    position:absolute; 
+    left:-100px; 
+    top:200px; 
+    transition:1s;
+}
+.content .list > li .course .plane3{ 
+    width:230px; 
+    height:182px; 
+    background:url(../img/plane3.png) no-repeat; 
+    position:absolute; 
+    left:300px; top:400px; 
+    transition:1s;
+}
+/* 标题 */
+.content .list > li .course .course1{
+    margin: 50px;
+}
+/* 文本 */
+.content .list > li .course .course2{
+    width: 400px;
+    margin-left: 50px;
+    position: relative;
+    z-index: 99;
+}
+/* 照片墙 */
+.content .list > li .course .course3{
+    position: absolute;
+    width: 480px;
+    top: 70px;
+    right: 50px;
+    border-radius: 10px;
+    overflow: hidden;
+    z-index: 99;
+}
+/* 照片元素 */
+.content .list > li .course .course3 .item{
+    position: relative;
+    width: 120px;
+    height: 132px;
+    float: left;
+    /* 开启3d */
+    transform-style: preserve-3d;
+    /* 景深 */
+    perspective: 800px;
+    transition: 1s;
+}
+/* 前面 */
+.content .list > li .course .course3 .item .front{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-image: url(../img/pcwelt.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    /* 背面不可见 */
+    /* backface-visibility: hidden; */
+}
+/* 后面 */
+.content .list > li .course .course3 .item .back{
+    position: absolute;
+    width: 120px;
+    height: 132px;
+    left: 0;
+    top: 0;
+    background-image: url(../img/back.jpg);
+    transform: rotateY(.5turn);
+    backface-visibility: hidden;
+    overflow: hidden;
+}
+.content .list > li .course .course3:hover .item{
+    transform: rotateY(180deg);
+}
+/* 第一屏 */
+.content .list > li:nth-child(1){
+    background-image: url(../img/bg1.jpg);
+}
+/*设置轮播图ul*/
+.content .list > li .home .homeList{
+    width: 100%;
+    height: 100%;
+    /* background-color: rosybrown; */
+    position: relative;
+    transform-style: preserve-3d;
+    perspective: 800px;
+    transition: 2s;
+}
+/* 每一张定位 */
+.content .list > li .home .homeList > li{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+/* 图片隐藏 */
+.content .list > li .home .homeList > li{
+    visibility: hidden;
+}
+.content .list > li .home .homeList > li.active{
+    visibility: visible;
+}
+/* 设置一个下一张左边图片变换的类 */
+.content .list > li .home .homeList > li.leftHide{
+    animation: leftH 2s linear;
+    visibility: hidden;
+}
+/* 设置下一张左边图片变换的类  */
+.content .list > li .home .homeList > li.rightShow{
+    animation: rightS 2s linear;
+    visibility: visible;
+}
+/* 设置下一张关键帧左侧隐藏 */
+@keyframes leftH{
+    0%{
+        visibility: visible;
+    }
+    50%{
+        transform: translateX(-40%) rotateY(30deg) scale(0.8);
+    }
+    100%{
+        transform: translateZ(-200px);
+    }
+}
+/* 设置下一张关键帧左侧显示 */
+@keyframes rightS{
+    0%{
+        transform: translateZ(-200px);
+    }
+    50%{
+        transform: translateX(40%) rotateY(-30deg) scale(0.8);
+    }
+    100%{
+
+    }
+}
+/* 设置上一张左边出现 */
+.content .list > li .home .homeList > li.leftShow{
+    animation: leftS 2s linear;
+    visibility: visible;
+}
+/* 设置上一张右边隐藏 */
+.content .list > li .home .homeList > li.rightHide{
+    animation: rightH 2s linear;
+    visibility: hidden;
+}
+/* 设置上一张关键帧左侧显示 */
+@keyframes leftS{
+    0%{
+        visibility: hidden;
+        transform: translateZ(-200px);
+    }
+    50%{
+        transform: translateX(-40%) rotateY(30deg) scale(0.8);
+    }
+    100%{
+
+    }
+}
+/* 设置上一张关键帧右侧隐藏 */
+@keyframes rightH{
+    0%{
+        visibility: visible;
+    }
+    50%{
+        transform: translateX(40%) rotateY(-30deg) scale(0.8);
+    }
+    100%{
+        transform: translateZ(-200px);
+    }
+}
+/* 设置小圆点 */
+.content .list > li .home .homeIcon{
+    position: absolute;
+    left: 50%;
+    /* 为了居中 又不可以使用transform */
+    margin-left: -43px;
+    bottom: 0;
+    transition: 2s;
+}
+/* 小圆点 */
+.content .list > li .home .homeIcon > li{
+    float: left;
+    width: 20px;
+    height: 20px;
+    background-color: rgba(255,255,255,0.5);
+    border-radius: 50%;
+    margin: 2px;
+    box-shadow: 0 0 4px rgba(25,25,25,0.8);
+    cursor: pointer;
+}
+.content .list > li .home .homeIcon > li.active{
+    background-color: #fff;
+}
+/* 第五屏 */
+.content .list > li:nth-child(5){
+    background-image: url(../img/bg5.jpg);
+}
+/* 标题 */
+.content .list > li .team .team1{
+    float: left;
+    width: 400px;
+    margin: 50px;
+    transition: 1s;
+}
+/* 文本 */
+.content .list > li .team .team2{
+    float: right;
+    width: 400px;
+    margin: 50px;
+    transition: 1s;
+}
+/* 列表位置 */
+.content .list > li .team .team3{
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    margin-left: -480px;
+    width: 960px;
+    height: 220px;
+    /* background-color: rosybrown; */
+}
+/* 每一张背景li */
+.content .list > li .team .team3 .teamIcon > li{
+    float: left;
+    width: 240px;
+    height: 220px;
+    overflow: hidden;
+}
+.content .list > li .team .team3 .teamIcon > li:nth-child(1){
+    background-image: url(../img/team1.png);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.content .list > li .team .team3 .teamIcon > li:nth-child(2){
+    background-image: url(../img/team2.png);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.content .list > li .team .team3 .teamIcon > li:nth-child(3){
+    background-image: url(../img/team3.png);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.content .list > li .team .team3 .teamIcon > li:nth-child(4){
+    background-image: url(../img/team4.png);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+/* 侧边导航 */
+.content .meunBar{
+    position: fixed;
+    top: 50%;
+    right: 10px;
+    z-index: 100;
+}
+/* 侧边小圆点 */
+.content .meunBar > li{
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    border: 1px solid white;
+    margin-top: 10px;
+    cursor: pointer;
+}
+.content .meunBar > li.active{
+    background-color: white;
+}
+/* 遮罩 */
+#mask{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 101;
+}
+/* 上下遮罩 */
+#mask div{
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: #009ee0;
+    transition: height 1s;
+}
+/* 上遮罩 */
+#mask .maskTop{
+    top:0;
+}
+/* 下遮罩 */
+#mask .maskBottom{
+    bottom: 0;
+}
+/* 线段 */
+#mask .maskLine{
+    position: absolute;
+    top:50%;
+    height: 4px;
+    margin-top: -2px;
+    left:0;
+    background: #fff;
+    width: 0;
+    transition: width 1s;
+}

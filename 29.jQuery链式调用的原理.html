@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function $(){
+            let obj = {};
+            obj.name = '周立超';
+            obj.say = function(){
+                alert('我叫周立超');
+                return this;
+            };
+            obj.eat = function(){
+                alert('周立超吃的贼多');
+                return this;
+            };
+            return obj;
+        }
+
+        // $().eat();
+        $().eat().say().eat().say();
+    </script>
+</body>
+</html>
